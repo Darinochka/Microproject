@@ -58,20 +58,17 @@ def get_stat():
     dates_of_poster = ["2021-01-25", "2021-01-26",
                        "2021-01-27", "2021-01-28", "2021-01-29"]
 
-    data_json = loads_json("JitsiStats.json")
+    data_json = loads_json("JitsiClasses.json")
     for data in data_json:
-        data = json.loads(line)
-
         for auditorium in data["auditoriums"]:
             grade["attendance_seminars"] += check_seminar(auditorium)
-            try:
-                if data["date"] in dates_of_poster:
-                    grade["attendance_poster"] += check_project(auditorium["name"],
-                                                                auditorium["classes"],
-                                                                data["date"])
-            except KeyError:
-                pass
 
+    data_json = loads_json("JitsiSession.json")
+    for data in data_json:
+        if (data["username"] == EMAIL
+                and data["date"] in dates_of_poster):
+            grade["attendance_poster"] += check_project(data["room"],
+                                                        data["date"])
     return grade
 
 
@@ -87,26 +84,13 @@ def check_seminar(auditorium):
                 count += 1
         except KeyError:
             pass
-        
     return count
 
 
-def check_poster(session):
-    times_of_poster = ["13:00-14:20",
-                       "14:40-16:00", "11:10-12:30", "09:30-10:50"]
-    if (session["members"].count(EMAIL) > 0
-            and session["classTime"] in times_of_poster):
-        return True
-
-
-def check_project(name, classes, date):
-    count = 0
+def check_project(room, date):
     path_date = "/home/student/student_stats/ddrustamova/dates/"+date+".txt"
     projects = [line[:-1] for line in open(path_date)]
 
-    if name[0:7] == "project" and name[7:] in projects:
-        for session in classes:
-            if check_poster(session):
-                count += 1
-
-    return count
+    if room[0:7] == "project" and room[7:] in projects:
+        return 1
+    return 0
