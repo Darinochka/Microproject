@@ -23,7 +23,7 @@ def get_stat_zulip_mess():
         if data["email"] == EMAIL:
             grade["account_zulip"] = 1
             for message in data["messages"]:
-                if message["timestamp"][:10] in messages:
+                if message["timestamp"] in messages:
                     messages[message["timestamp"]] += 1
                 else:
                     messages[message["timestamp"]] = 1
@@ -44,7 +44,7 @@ def get_stat_git_commits():
             for project in data["projects"]:
                 try:
                     for commit in project["commits"]:
-                        if commit["committed_date"][:10] in commits:
+                        if commit["committed_date"] in commits:
                             commits[commit["committed_date"]] += 1
                         else:
                             commits[commit["committed_date"]] = 1
