@@ -71,7 +71,7 @@ def get_stat_jitsi_poster():
                 posters[data["date"]] += check_project(data["room"],
                                                         data["date"])
             else:
-                posters[data["date"]] = 1
+                posters[data["date"]] = 0
     grade["attendance_poster"] = sum(posters.values())
 
     return posters
