@@ -72,7 +72,7 @@ def get_stat_jitsi_poster():
                                                         data["date"])
             else:
                 posters[data["date"]] = 1
-    grade["attendance_posters"] = sum(posters.values())
+    grade["attendance_poster"] = sum(posters.values())
 
     return posters
     
