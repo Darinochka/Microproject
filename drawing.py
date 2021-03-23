@@ -3,7 +3,7 @@ import plotly.express as px
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-from parsing import get_stat, get_stat_git_commits, get_stat_zulip_mess, grade
+from parsing import get_stat, get_stat_git_commits, get_stat_zulip_mess,get_stat_jitsi_poster, get_stat_jitsi_classes, grade
 
 
 def create_dates_and_counts(d):
