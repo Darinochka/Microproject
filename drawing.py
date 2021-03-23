@@ -3,7 +3,7 @@ import plotly.express as px
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-from parsing import get_stat, get_stat_git_commits, get_stat_zulip_mess
+from parsing import get_stat, get_stat_git_commits, get_stat_zulip_mess, grade
 
 
 def create_dates_and_counts(d):
@@ -12,10 +12,10 @@ def create_dates_and_counts(d):
     return dates, counts
 
 
-grade = get_stat()
-
 commits_date, commits_count = create_dates_and_counts(get_stat_git_commits())
 messages_date, messages_count = create_dates_and_counts(get_stat_zulip_mess())
+seminars_date, seminars_count = create_dates_and_counts(get_stat_jitsi_classes())
+poster_date, poster_count = create_dates_and_counts(get_stat_jitsi_poster())
 
 counts = list(grade.values())
 
@@ -40,7 +40,7 @@ fig = make_subplots(
 fig.add_trace(go.Scatter(
     x=commits_date,
     y=commits_count,
-    name='commits',
+    name='Комииты',
     connectgaps=True
 ),
     row=1, col=1)
@@ -48,11 +48,26 @@ fig.add_trace(go.Scatter(
 fig.add_trace(go.Scatter(
     x=messages_date,
     y=messages_count,
-    name='messages',
+    name='Сообщения',
     connectgaps=True
 ),
     row=1, col=1)
 
+fig.add_trace(go.Scatter(
+    x=seminars_date,
+    y=seminars_count,
+    name='Присутствие на семинарах',
+    connectgaps=True
+),
+    row=1, col=1)
+
+fig.add_trace(go.Scatter(
+    x=poster_date,
+    y=poster_count,
+    name='Присутствие на постерной сессии',
+    connectgaps=True
+),
+    row=1, col=1)
 fig.add_trace(
     go.Table(
         header=dict(values=["Критерии", 'Количество', 'Итог']),
@@ -67,7 +82,7 @@ fig.update_layout(
     height=900,
     plot_bgcolor='rgb(245, 245, 245)',
     showlegend=True,
-    yaxis_title="Count",
+    yaxis_title="Количество",
     title_text="Вывод оценки активности Рустамовой Дарины",
 )
 fig.write_html("/home/student/student_stats/ddrustamova/ddrustamova.html")
