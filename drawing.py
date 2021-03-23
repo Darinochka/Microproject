@@ -26,7 +26,8 @@ for i in range(len(counts)):
     else:
         summary_counts.append(int(bool(counts[i])))
 
-summary_counts.append(round(sum(summary_counts)))
+summary = round(sum(summary_counts))
+summary_counts.append(summary - summary%10)
 
 fig = make_subplots(
     rows=2, cols=1,
