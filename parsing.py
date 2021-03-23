@@ -19,7 +19,7 @@ def get_stat_zulip_mess():
     "return dict of date and count of messages"
     messages = {}
 
-    for data in loads_json("ZulipStats(2021-03-22).json"):
+    for data in loads_json("ZulipStats.json"):
         if data["email"] == EMAIL:
             grade["account_zulip"] = 1
             grade["messages_zulip"] += len(data["messages"])
@@ -36,7 +36,7 @@ def get_stat_git_commits():
     "return dict date and count of commits"
     commits = {}
 
-    for data in loads_json("GitStats(2021-03-22).json"):
+    for data in loads_json("GitStats.json"):
         if data["email"] == EMAIL:
             grade["account_git"] = 1
 
@@ -58,10 +58,10 @@ def get_stat():
     dates_of_poster = ["2021-01-25", "2021-01-26",
                        "2021-01-27", "2021-01-28", "2021-01-29"]
 
-    data_json = loads_json("JitsiStats(2021-03-22).json")
+    data_json = loads_json("JitsiStats.json")
     for data in data_json:
         data = json.loads(line)
-        #for data in loads_json("JitsiStats(2021-03-22).json"):
+
         for auditorium in data["auditoriums"]:
             grade["attendance_seminars"] += check_seminar(auditorium)
             try:
@@ -71,6 +71,7 @@ def get_stat():
                                                                 data["date"])
             except KeyError:
                 pass
+
     return grade
 
 
@@ -86,6 +87,7 @@ def check_seminar(auditorium):
                 count += 1
         except KeyError:
             pass
+        
     return count
 
 
