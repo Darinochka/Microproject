@@ -91,10 +91,10 @@ def get_stat_jitsi_classes():
                         and seminar["classTime"] in times_of_seminars
                             and seminar["members"].count(EMAIL) > 0):
                         print("erfwer")
-                        if auditorium["date"] in seminars:
-                            seminars[auditorium["date"]] += 1
+                        if data["date"] in seminars:
+                            seminars[data["date"]] += 1
                         else:
-                            seminars[auditorium["date"]] = 1
+                            seminars[data["date"]] = 1
                 except KeyError:
                     pass
     grade["attendance_seminars"] = sum(seminars.values())   
