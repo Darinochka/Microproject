@@ -28,7 +28,7 @@ for i in range(len(counts)):
 
 summary = round(sum(summary_counts))
 summary_counts.append(summary - summary%10)
-print(grade, counts)
+
 fig = make_subplots(
     rows=2, cols=1,
     shared_xaxes=True,
