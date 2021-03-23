@@ -56,7 +56,7 @@ fig.add_trace(go.Scatter(
 fig.add_trace(go.Scatter(
     x=seminars_date,
     y=seminars_count,
-    name='Присутствие на семиинарах',
+    name='Присутствие на семинарах',
     connectgaps=True
 ),
     row=1, col=1)
@@ -64,7 +64,7 @@ fig.add_trace(go.Scatter(
 fig.add_trace(go.Scatter(
     x=poster_date,
     y=poster_count,
-    name='Присутствие на постерной сессиии',
+    name='Присутствие на постерной сессии',
     connectgaps=True
 ),
     row=1, col=1)
