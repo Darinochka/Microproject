@@ -17,7 +17,6 @@ messages_date, messages_count = create_dates_and_counts(get_stat_zulip_mess())
 seminars_date, seminars_count = create_dates_and_counts(get_stat_jitsi_classes())
 poster_date, poster_count = create_dates_and_counts(get_stat_jitsi_poster())
 
-print(seminars_count, seminars_date)
 counts = list(grade.values())
 
 summary_counts = []
@@ -29,7 +28,7 @@ for i in range(len(counts)):
 
 summary = round(sum(summary_counts))
 summary_counts.append(summary - summary%10)
-
+print(grade, counts)
 fig = make_subplots(
     rows=2, cols=1,
     shared_xaxes=True,
