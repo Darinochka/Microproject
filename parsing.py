@@ -24,9 +24,9 @@ def get_stat_zulip_mess():
             grade["account_zulip"] = 1
             for message in data["messages"]:
                 if message["timestamp"][:10] in messages:
-                    messages[message["timestamp"][:10]] += 1
+                    messages[message["timestamp"] += 1
                 else:
-                    messages[message["timestamp"][:10]] = 1
+                    messages[message["timestamp"] = 1
 
     grade["messages_zulip"] = sum(messages.values())
 
@@ -45,9 +45,9 @@ def get_stat_git_commits():
                 try:
                     for commit in project["commits"]:
                         if commit["committed_date"][:10] in commits:
-                            commits[commit["committed_date"][:10]] += 1
+                            commits[commit["committed_date"] += 1
                         else:
-                            commits[commit["committed_date"][:10]] = 1
+                            commits[commit["committed_date"] = 1
                 except KeyError:
                     pass
     grade["commits_git"] = sum(commits.values())
