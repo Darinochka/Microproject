@@ -40,7 +40,7 @@ fig = make_subplots(
 fig.add_trace(go.Scatter(
     x=commits_date,
     y=commits_count,
-    name='Комииты',
+    name='Коммиты',
     connectgaps=True
 ),
     row=1, col=1)
