@@ -41,6 +41,7 @@ fig.add_trace(go.Scatter(
     x=commits_date,
     y=commits_count,
     name='Коммиты',
+    mode='lines',
     connectgaps=True
 ),
     row=1, col=1)
@@ -49,6 +50,7 @@ fig.add_trace(go.Scatter(
     x=messages_date,
     y=messages_count,
     name='Сообщения',
+    mode='lines',
     connectgaps=True
 ),
     row=1, col=1)
@@ -57,6 +59,7 @@ fig.add_trace(go.Scatter(
     x=seminars_date,
     y=seminars_count,
     name='Присутствие на семинарах',
+    mode='lines+markers'
     connectgaps=True
 ),
     row=1, col=1)
@@ -65,6 +68,7 @@ fig.add_trace(go.Scatter(
     x=poster_date,
     y=poster_count,
     name='Присутствие на постерной сессии',
+    mode='lines+markers'
     connectgaps=True
 ),
     row=1, col=1)
