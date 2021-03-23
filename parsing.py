@@ -67,7 +67,7 @@ def get_stat_jitsi_poster():
     for data in data_json:
         if (data["username"] == EMAIL
                 and data["date"] in dates_of_poster):
-            if posters[data["date"]]:
+            if data["date"] in posters:
                 posters[data["date"]] += check_project(data["room"],
                                                         data["date"])
             else:
@@ -89,7 +89,7 @@ def get_stat_jitsi_classes():
                     if (seminar["discipline"] == "Проектный семинар (1 курс) (рус)"
                         and seminar["classTime"] in times_of_seminars
                             and seminar["members"].count(EMAIL) > 0):
-                        if seminars[auditorium["date"]]:
+                        if auditorium["date"] in seminars:
                             seminars[auditorium["date"]] += 1
                         else:
                             seminars[auditorium["date"]] = 1
