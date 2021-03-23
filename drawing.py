@@ -17,6 +17,7 @@ messages_date, messages_count = create_dates_and_counts(get_stat_zulip_mess())
 seminars_date, seminars_count = create_dates_and_counts(get_stat_jitsi_classes())
 poster_date, poster_count = create_dates_and_counts(get_stat_jitsi_poster())
 
+print(seminars_count, seminars_date)
 counts = list(grade.values())
 
 summary_counts = []
@@ -68,6 +69,7 @@ fig.add_trace(go.Scatter(
     connectgaps=True
 ),
     row=1, col=1)
+
 fig.add_trace(
     go.Table(
         header=dict(values=["Критерии", 'Количество', 'Итог']),
