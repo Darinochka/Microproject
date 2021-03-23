@@ -67,8 +67,11 @@ def get_stat_jitsi_poster():
     for data in data_json:
         if (data["username"] == EMAIL
                 and data["date"] in dates_of_poster):
-            posters[data["date"]] += check_project(data["room"],
+            if posters[data["date"]]:
+                posters[data["date"]] += check_project(data["room"],
                                                         data["date"])
+            else:
+                posters[data["date"]] = 1
     grade["attendance_posters"] = sum(posters.values())
 
     return posters
@@ -86,7 +89,10 @@ def get_stat_jitsi_classes():
                     if (seminar["discipline"] == "Проектный семинар (1 курс) (рус)"
                         and seminar["classTime"] in times_of_seminars
                             and seminar["members"].count(EMAIL) > 0):
-                        seminars[auditorium["date"]] += 1
+                        if seminars[auditorium["date"]]:
+                            seminars[auditorium["date"]] += 1
+                        else:
+                            seminars[auditorium["date"]] = 1
                 except KeyError:
                     pass
     grade["attendance_seminars"] = sum(seminars.values())   
