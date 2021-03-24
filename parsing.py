@@ -20,7 +20,6 @@ def loads_json(file_name):
 def get_stat_zulip_mess():
     "return dict of date and count of messages"
     messages = {}
-    messages[CURRENT_DATE] = 0
 
     for data in loads_json("ZulipStats.json"):
         if data["email"] == EMAIL:
@@ -32,6 +31,7 @@ def get_stat_zulip_mess():
                     messages[message["timestamp"][:10]] = 1
     
     grade["messages_zulip"] = sum(messages.values())
+    messages[CURRENT_DATE] = 0
 
     return messages
 
@@ -39,7 +39,6 @@ def get_stat_zulip_mess():
 def get_stat_git_commits():
     "return dict date and count of commits"
     commits = {}
-    commits[CURRENT_DATE] = 0
 
     for data in loads_json("GitStats.json"):
         if data["email"] == EMAIL:
@@ -55,6 +54,7 @@ def get_stat_git_commits():
                 except KeyError:
                     pass
     grade["commits_git"] = sum(commits.values())
+    commits[CURRENT_DATE] = 0
 
     return commits
 
@@ -80,7 +80,6 @@ def get_stat_jitsi_classes():
     count = 0
     times_of_seminars = ["18:10-19:30", "16:20-17:40", "19:40-21:00"]
     seminars = {}
-    seminars[CURRENT_DATE] = 0
     
     data_json = loads_json("JitsiClasses.json")
     for data in data_json:
@@ -97,6 +96,7 @@ def get_stat_jitsi_classes():
                 except KeyError:
                     pass
     grade["attendance_seminars"] = sum(seminars.values())
+    seminars[CURRENT_DATE] = 0
 
     return seminars
 
