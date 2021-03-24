@@ -1,7 +1,7 @@
 import json
 from datetime import datetime
 
-CURRENT_DATETIME = datetime.now()
+CURRENT_DATETIME = datetime.now().date()
 EMAIL = "ddrustamova@miem.hse.ru"
 grade = {
     "account_git": 0,
@@ -19,18 +19,17 @@ def loads_json(file_name):
 
 def get_stat_zulip_mess():
     "return dict of date and count of messages"
-    messages = {"2021-01-01T00:00:00.000Z":0}
-    
-    messages[CURRENT_DATETIME] = 0
+    messages = {}
+
     for data in loads_json("ZulipStats.json"):
         if data["email"] == EMAIL:
             grade["account_zulip"] = 1
             for message in data["messages"]:
-                if message["timestamp"] in messages:
-                    messages[message["timestamp"]] += 1
+                if message["timestamp"][:10] in messages:
+                    messages[message["timestamp"][:10]] += 1
                 else:
-                    messages[message["timestamp"]] = 1
-
+                    messages[message["timestamp"][:10]] = 1
+    messages[CURRENT_DATETIME] = 0
     grade["messages_zulip"] = sum(messages.values())
 
     return messages
@@ -38,8 +37,7 @@ def get_stat_zulip_mess():
 
 def get_stat_git_commits():
     "return dict date and count of commits"
-    commits = {"2021-01-01T00:00:00.000Z":0}
-    commits[CURRENT_DATETIME] = 0
+    commits = {}
 
     for data in loads_json("GitStats.json"):
         if data["email"] == EMAIL:
@@ -48,41 +46,39 @@ def get_stat_git_commits():
             for project in data["projects"]:
                 try:
                     for commit in project["commits"]:
-                        if commit["committed_date"] in commits:
-                            commits[commit["committed_date"]] += 1
+                        if commit["committed_date"][:10] in commits:
+                            commits[commit["committed_date"][:10]] += 1
                         else:
-                            commits[commit["committed_date"]] = 1
+                            commits[commit["committed_date"][:10]] = 1
                 except KeyError:
                     pass
     grade["commits_git"] = sum(commits.values())
-    
+    commits[CURRENT_DATETIME] = 0
+
     return commits
 
 
 def get_stat_jitsi_poster():
     dates_of_poster = ["2021-01-25", "2021-01-26",
                        "2021-01-27", "2021-01-28", "2021-01-29"]
-    posters = {"2021-01-01T00:00:00.000Z":0}
-    posters[CURRENT_DATETIME] = 0
+    posters = dict.fromkeys(dates_of_poster, 0)
 
     data_json = loads_json("JitsiSession.json")
     for data in data_json:
         if (data["username"] == EMAIL
                 and data["date"] in dates_of_poster):
-            if data["date"] in posters:
-                posters[data["date"]] += check_project(data["room"],
-                                                        data["date"])
-            else:
-                posters[data["date"]] = 0
+            posters[data["date"]] += check_project(data["room"],
+                                                   data["date"])
+
     grade["attendance_poster"] = sum(posters.values())
 
     return posters
-    
+
+
 def get_stat_jitsi_classes():
     count = 0
     times_of_seminars = ["18:10-19:30", "16:20-17:40", "19:40-21:00"]
-    seminars = {"2021-01-01T00:00:00.000Z":0}
-    seminars[CURRENT_DATETIME] = 0
+    seminars = {}
 
     data_json = loads_json("JitsiClasses.json")
     for data in data_json:
@@ -98,8 +94,11 @@ def get_stat_jitsi_classes():
                             seminars[data["date"]] = 1
                 except KeyError:
                     pass
-    grade["attendance_seminars"] = sum(seminars.values())   
-    return seminars;
+    grade["attendance_seminars"] = sum(seminars.values())
+    seminars[CURRENT_DATETIME] = 0
+
+    return seminars
+
 
 def check_project(room, date):
     path_date = "/home/student/student_stats/ddrustamova/dates/"+date+".txt"

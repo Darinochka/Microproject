@@ -3,7 +3,7 @@ import plotly.express as px
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-from parsing import get_stat, get_stat_git_commits, get_stat_zulip_mess,get_stat_jitsi_poster, get_stat_jitsi_classes, grade
+from parsing import get_stat_git_commits, get_stat_zulip_mess,get_stat_jitsi_poster, get_stat_jitsi_classes, grade
 
 
 def create_dates_and_counts(d):
@@ -18,7 +18,7 @@ seminars_date, seminars_count = create_dates_and_counts(get_stat_jitsi_classes()
 poster_date, poster_count = create_dates_and_counts(get_stat_jitsi_poster())
 
 counts = list(grade.values())
-print(commits_date, commits_count)
+
 summary_counts = []
 for i in range(len(counts)):
     if i == 4 or i == 5:
@@ -59,7 +59,7 @@ fig.add_trace(go.Scatter(
     x=seminars_date,
     y=seminars_count,
     name='Присутствие на семинарах',
-    mode='lines+markers'
+    mode='lines+markers',
     connectgaps=True
 ),
     row=1, col=1)
@@ -68,7 +68,7 @@ fig.add_trace(go.Scatter(
     x=poster_date,
     y=poster_count,
     name='Присутствие на постерной сессии',
-    mode='lines+markers'
+    mode='lines+markers',
     connectgaps=True
 ),
     row=1, col=1)
