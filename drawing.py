@@ -24,10 +24,10 @@ for i in range(len(counts)):
     if i == 4 or i == 5:
         summary_counts.append(counts[i]*0.5)
     else:
-        summary_counts.append(int(bool(counts[i])))
+        summary_counts.append(counts[i]*1)
 
 summary = round(sum(summary_counts))
-summary_counts.append(summary - summary%10)
+summary_counts.append(min(summary, 10))
 
 fig = make_subplots(
     rows=2, cols=1,
