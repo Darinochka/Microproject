@@ -8,10 +8,7 @@ from parsing import get_stat_git_commits, get_stat_zulip_mess,get_stat_jitsi_pos
 
 def create_dates_and_counts(d):
     date_value = sorted(d.items())
-    dates = [x[0] for x in date_value]
-    counts = [x[1] for x in date_value]
-    return dates, counts
-
+    return zip(*date_value)
 
 commits_date, commits_count = create_dates_and_counts(get_stat_git_commits())
 messages_date, messages_count = create_dates_and_counts(get_stat_zulip_mess())
