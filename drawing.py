@@ -6,14 +6,13 @@ from plotly.subplots import make_subplots
 from parsing import get_stat_git_commits, get_stat_zulip_mess,get_stat_jitsi_poster, get_stat_jitsi_classes, grade
 
 
-def create_dates_and_counts(d):
-    date_value = sorted(d.items())
-    return zip(*date_value)
+def dates_and_counts(d):
+    return zip(*sorted(d.items()))
 
-commits_date, commits_count = create_dates_and_counts(get_stat_git_commits())
-messages_date, messages_count = create_dates_and_counts(get_stat_zulip_mess())
-seminars_date, seminars_count = create_dates_and_counts(get_stat_jitsi_classes())
-poster_date, poster_count = create_dates_and_counts(get_stat_jitsi_poster())
+commits_date, commits_count = dates_and_counts(get_stat_git_commits())
+messages_date, messages_count = dates_and_counts(get_stat_zulip_mess())
+seminars_date, seminars_count = dates_and_counts(get_stat_jitsi_classes())
+poster_date, poster_count = dates_and_counts(get_stat_jitsi_poster())
 
 counts = list(grade.values())
 
@@ -24,8 +23,7 @@ for i in range(len(counts)):
     else:
         summary_counts.append(int(bool(counts[i])))
 
-summary = round(sum(summary_counts))
-summary_counts.append(min(summary, 10))
+summary_counts.append(min(round(sum(summary_counts)), 10))
 
 fig = make_subplots(
     rows=2, cols=1,
@@ -39,7 +37,6 @@ fig.add_trace(go.Scatter(
     x=commits_date,
     y=commits_count,
     name='Коммиты',
-    mode='lines',
     connectgaps=True
 ),
     row=1, col=1)
@@ -48,7 +45,6 @@ fig.add_trace(go.Scatter(
     x=messages_date,
     y=messages_count,
     name='Сообщения',
-    mode='lines',
     connectgaps=True
 ),
     row=1, col=1)
@@ -57,7 +53,6 @@ fig.add_trace(go.Scatter(
     x=seminars_date,
     y=seminars_count,
     name='Присутствие на семинарах',
-    mode='lines+markers',
     connectgaps=True
 ),
     row=1, col=1)
@@ -66,7 +61,6 @@ fig.add_trace(go.Scatter(
     x=poster_date,
     y=poster_count,
     name='Присутствие на постерной сессии',
-    mode='lines+markers',
     connectgaps=True
 ),
     row=1, col=1)
