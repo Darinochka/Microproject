@@ -7,8 +7,9 @@ from parsing import get_stat_git_commits, get_stat_zulip_mess,get_stat_jitsi_pos
 
 
 def create_dates_and_counts(d):
-    dates = list(d.keys())
-    counts = list(d.values())
+    date_value = sorted(d.items())
+    dates = [x[0] for x in date_value]
+    counts = [x[1] for x in date_value]
     return dates, counts
 
 
@@ -18,7 +19,7 @@ seminars_date, seminars_count = create_dates_and_counts(get_stat_jitsi_classes()
 poster_date, poster_count = create_dates_and_counts(get_stat_jitsi_poster())
 
 counts = list(grade.values())
-print(commits_date)
+
 summary_counts = []
 for i in range(len(counts)):
     if i == 4 or i == 5:
