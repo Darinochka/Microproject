@@ -18,7 +18,7 @@ seminars_date, seminars_count = create_dates_and_counts(get_stat_jitsi_classes()
 poster_date, poster_count = create_dates_and_counts(get_stat_jitsi_poster())
 
 counts = list(grade.values())
-
+print(commits_date)
 summary_counts = []
 for i in range(len(counts)):
     if i == 4 or i == 5:
