@@ -32,7 +32,7 @@ def get_stat_zulip_mess():
     
     grade["messages_zulip"] = sum(messages.values())
     messages[CURRENT_DATE] = 0
-
+    sorted(messages, key=lambda d: datetime.strptime(d, '%d-%m-%Y'))
     return messages
 
 
@@ -55,7 +55,7 @@ def get_stat_git_commits():
                     pass
     grade["commits_git"] = sum(commits.values())
     commits[CURRENT_DATE] = 0
-
+    sorted(commits, key=lambda d: datetime.strptime(d, '%d-%m-%Y'))
     return commits
 
 
@@ -72,7 +72,7 @@ def get_stat_jitsi_poster():
                                                    data["date"])
 
     grade["attendance_poster"] = sum(posters.values())
-
+    sorted(posters, key=lambda d: datetime.strptime(d, '%d-%m-%Y'))
     return posters
 
 
@@ -97,7 +97,7 @@ def get_stat_jitsi_classes():
                     pass
     grade["attendance_seminars"] = sum(seminars.values())
     seminars[CURRENT_DATE] = 0
-
+    sorted(seminars, key=lambda d: datetime.strptime(d, '%d-%m-%Y'))
     return seminars
 
 
