@@ -1,5 +1,5 @@
 import json
-from datetime import date
+from datetime import datetime
 
 CURRENT_DATE = date.today()
 EMAIL = "ddrustamova@miem.hse.ru"
